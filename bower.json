@@ -10,9 +10,7 @@
     "polymer",
     "demo"
   ],
-  "main": [
-    "demo-snippet.html"
-  ],
+  "main": "demo-snippet.html",
   "private": true,
   "repository": {
     "type": "git",
