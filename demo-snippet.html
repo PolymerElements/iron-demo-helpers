@@ -114,17 +114,49 @@ Custom property | Description | Default
           return;
         }
 
+        var templateContent = template._content || template.content;
+        this._updateMarkdown(this._getTemplateHTML(templateContent));
+
+        // Stamp the template.
+        Polymer.dom(this).appendChild(document.importNode(templateContent, true));
+      },
+
+      _getTemplateHTML: function(templateContent) {
+        // For nested templates, `innerHTML` doesn't return the right thing,
+        // since template contents are not cloned correctly. In that case,
+        // we need to generate the content from the children.
+        var innerHTML = templateContent.innerHTML;
+
+        if (!innerHTML && templateContent.childNodes.length > 0) {
+          innerHTML = '';
+          for (var i = 0; i < templateContent.childNodes.length; i++ ) {
+            var child = templateContent.childNodes[i];
+
+            if (child.nodeType === Node.TEXT_NODE) {
+              // We need to save the contents of text nodes to maintain the
+              // correct indentation.
+              innerHTML += child.textContent;
+            } else if (child.nodeType === Node.COMMENT_NODE) {
+              // Comment nodes have a terrible api.
+              innerHTML += '<!--' + child.textContent + '-->';
+            } else {
+              innerHTML += child.outerHTML;
+            }
+          }
+        }
+
+        return innerHTML;
+      },
+
+      _updateMarkdown: function(innerHTML) {
         // TODO(noms): When marked-element/issues/23 lands, this will become
         // a public method and will need to be updated.
-        var snippet = this.$.marked._unindent(template.innerHTML);
+        var snippet = this.$.marked._unindent(innerHTML);
 
         // Boolean properties are displayed as checked="", so remove the ="" bit.
         snippet = snippet.replace(/=""/g, '');
 
         this._markdown = '```\n' + snippet + '\n' + '```';
-
-        // Stamp the template.
-        Polymer.dom(this).appendChild(document.importNode(template.content, true));
       }
     });
   </script>

@@ -59,9 +59,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
+  <test-fixture id="nested-templates">
+    <template>
+      <demo-snippet id="nestedDemo">
+        <template>
+          <template is="dom-bind">
+            <template is="dom-repeat" items='["one", "two"]'>
+              <input value="[[item]]">
+            </template>
+          </template>
+        </template>
+      </demo-snippet>
+    </template>
+  </test-fixture>
 
   <script>
-    // TODO(notwaldorf): Tests are currently very unhappy in IE
+    // TODO(notwaldorf): Tests are currently very unhappy in IE because
+    // the webcomponents polyfill does not handle the nested template
+    // inside the test-fixture correctly.
     function isNotIE() {
       return !navigator.userAgent.match(/MSIE/i);
     }
@@ -115,6 +130,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var markdownElement = element.$.marked;
         expect(markdownElement.markdown).to.be.equal(
             '```\n\n<paper-checkbox disabled></paper-checkbox>\n\n```');
+      }));
+
+      test('can render elements inside a nested template', skipUnless(isNotIE, function() {
+        var f = fixture('nested-templates');
+        var element = document.querySelector('#nestedDemo');
+
+        // Render the distributed children.
+        Polymer.dom.flush();
+
+        var rect = element.getBoundingClientRect();
+        expect(rect.height).to.be.greaterThan(emptyHeight);
+
+        // The demo is rendered in the light dom, so it should exist, and
+        // it should respect the demo element's attributes, and not make up
+        // new ones.
+        var inputs = Polymer.dom(element).querySelectorAll('input')
+        expect(inputs).to.be.ok;
+        expect(inputs.length).to.be.equal(2);
+        expect(inputs[0].value).to.be.equal('one');
+        expect(inputs[1].value).to.be.equal('two');
+
+        var code = element.$.marked.markdown;
+
+        // There's a lot of text in there, so rather than doing a string
+        // comparison, look for the things you care about
+        expect((code.match(/<template is="dom-bind">/g) || []).length).to.be.equal(1);
+        expect((code.match(/<template is="dom-repeat"/g) || []).length).to.be.equal(1);
+        expect((code.match(/<\/template>/g) || []).length).to.be.equal(2);
+        expect((code.match(/input/g) || []).length).to.be.equal(1);
       }));
     });
 
