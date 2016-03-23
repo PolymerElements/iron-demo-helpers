@@ -11,7 +11,6 @@
     "demo"
   ],
   "main": "demo-snippet.html",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/iron-demo-helpers.git"
