@@ -67,6 +67,15 @@ Custom property | Description | Default
             return window.top !== window;
           },
           reflectToAttribute: true
+        },
+        path: {
+          type: String
+        },
+        query: {
+          type: String
+        },
+        hash: {
+          type: String
         }
       },
       __computeUrl: function(path, query, hash) {
