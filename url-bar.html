@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-location/iron-location.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-styles/typography.html">
 
 <!--
 `url-bar` is a helper element that displays a simple read-only URL bar if
@@ -28,11 +29,12 @@ If the page is not in an iframe, the url-bar element is not displayed.
         display: block;
       }
       label {
+        @apply(--paper-font-common-base);
         display: inline-block;
         padding-right: 25px;
       }
       span {
-        font-family: monospace;
+        @apply(--paper-font-common-code);
         white-space: pre;
       }
     </style>
