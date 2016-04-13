@@ -1,5 +1,5 @@
 language: node_js
-sudo: false
+sudo: required
 before_script:
   - npm install -g bower polylint web-component-tester
   - bower install
@@ -10,10 +10,8 @@ addons:
   apt:
     sources:
       - google-chrome
-      - ubuntu-toolchain-r-test
     packages:
       - google-chrome-stable
-      - g++-4.8
   sauce_connect: true
 script:
   - xvfb-run wct
@@ -24,4 +22,4 @@ env:
   global:
     - secure: ZdORgF+qeVeCULluFHTdv3rWkff5UZQB2R/XY4WlDX6VMNoa4ox+Bv9jEwC9dFISX3YGZP+jxA3EAm3vNUdnRfi0WgecISGpagRippqk6pj3sz1thsllVBZgxRo6x63BGog74zxE0Okv01p1gMF1xEmO7cKlkDl4Axo8H1CLU3zOaG3W8tuY9TMgghq9cJAi8ybsojh26LKWaD8UnOfyb406fjEtHMammJ0+mnCnqUFF4suEj0G3Pujld8DZsZG0A/xKCLfykPsIdEnsP823aCIJX99XE0clCd/FTlNTHRhgdcAFwc3jqOrRFwXkGG8aW0W+ciKFESwmS5cAZZ6an+4LsDoOLBlmReACNq85HAu45ID+xfIKuG4gROMwRdOeIH1Zh9SZ0szcnYO8/JsuxyoXHeaiQnHc0ZZ/bzO3AV5p1APflDi5V2/q4OdXRZ7K7CQNO7b3GQk1vvXWG+553BJLbyWv/D04NpvQbdQqI2Zt/SDTdb7zRQVDnk6rZuODe8LU4QtF7EaO5+KHWjOvEsEsstPS8NFelw6Iqv8sAMO7dErAjWFuDXCCyTGSN7PVLcOhVy2gnpAspX1OZ/rubsDjqe3tN3BHURlRoEq3wXs93ZHcakIIor8aVs1hLd1XeX46hGGoK215SiKoCJWN8Bs/0174hE2pDNuVG5Hm/VQ=
     - secure: INTBdOGAsbGQ1aokMF/OX8SxTDlUH6VKcrdcOuVbu3aAllmMgOznRtOm8IbHa+c9Dn25nMEY7Nl9DvxA9EfkKbyKFCcwwYgzAtrs4U/9qmckw8yJikDyF06wwClxeXBDZr9qxHUarX770McBMfq+zOly6ls3v0TTrERO3MoV4dBJ+sj0Oj0TCjjt7hiaFq4xdSMpuGLoOdElL8zh+bgRj98R8uzOTYW4hdf80FZqO5gXOWMRDkZCI1Y4EDsAQSZQ9jDScT5qd4qYhujuFmAd1+a4EmRE+WF8Uvo2bwnm4/Fz8EEBYNzNQGftyTazXZqplhKlu1auTmOKxWadEWP2oD28FFFgnSyp/p9IzRi8DjKg7btumiL2bZOK5RFOP4OiN8+Fje7Hi9sA7utEunH8zqRYwZZehxQG3s/Ixi7wiOs9IoKxyjRpZTGMrb8tuCjsgtNTSsGbQ9Si3l/7q6zXd9ctC5F0HAhOANPUxqLt67NLxUDjp6mOcsdtEnB7hEGcC6g3NTGZnE6icTGi2f7SokK1dsxxoW8Z+FGWG+AT3FKTFJJlfoAx3Y/cSa/gI6/jyqheANbviD3qllrwvTCEjUPjMs0UoiLxEIb57aiY8cB1LplDnHQhZarXrOe1jcgOxs9H+YFaeSX6zL+WswLPwBvTgsvXuP018XBwBRpYbN8=
-    - CXX=g++-4.8
+dist: trusty
