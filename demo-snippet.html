@@ -160,7 +160,7 @@ Custom property | Description | Default
           this.$.copyButton.icon = 'done';
         } catch (err) {
           // Copy command is not available
-          console.error(err);
+          Polymer.Base._error(err);
           this.$.copyButton.icon = 'error';
         }
 
