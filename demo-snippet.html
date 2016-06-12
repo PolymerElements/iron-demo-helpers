@@ -144,7 +144,9 @@ Custom property | Description | Default
         this._markdown = '```\n' + snippet + '\n' + '```';
 
         // Stamp the template.
-        Polymer.dom(this).appendChild(document.importNode(template.content, true));
+        if (!template.is) {
+          Polymer.dom(this).appendChild(document.importNode(template.content, true));
+        }
       },
 
       _copyToClipboard: function() {

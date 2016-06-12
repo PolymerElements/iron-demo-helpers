@@ -55,6 +55,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </demo-snippet>
 
+  <demo-snippet id="typeExtensionDemo">
+    <template is="dom-bind">
+      <input id="oneWay" value="[[value]]">
+      <input id="twoWay" value="{{value::input}}">
+    </template>
+  </demo-snippet>
+
   <script>
     suite('display', function() {
       var emptyHeight;
@@ -107,6 +114,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var markdownElement = element.$.marked;
         expect(markdownElement.markdown).to.be.equal(
             '```\n\n<paper-checkbox disabled></paper-checkbox>\n\n```');
+      });
+
+      test('elements are only rendered once when using a custom type-extension', function() {
+        var element = document.getElementById('typeExtensionDemo');
+
+        // Render the distributed children.
+        Polymer.dom.flush();
+
+        var inputs = element.querySelectorAll('input');
+        expect(inputs.length).to.be.equal(2);
+      });
+
+      test('can support databinding between elements', function() {
+        var element = document.getElementById('typeExtensionDemo');
+        var twoWayInput = element.querySelector('input#twoWay');
+        var oneWayInput = element.querySelector('input#oneWay');
+
+        // Render the distributed children.
+        Polymer.dom.flush();
+
+        twoWayInput.value = 'test';
+
+        flush(function() {
+          expect(twoWayInput.value).to.be.equal('test');
+          expect(oneWayInput.value).to.be.equal('test');
+        });
       });
     });
 
