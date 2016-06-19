@@ -143,8 +143,12 @@ Custom property | Description | Default
 
         this._markdown = '```\n' + snippet + '\n' + '```';
 
-        // Stamp the template.
-        Polymer.dom(this).appendChild(document.importNode(template.content, true));
+
+        // If the template is dom-bind, it will render itself. Otherwise,
+        // stamp the template.
+        if (template.getAttribute('is') !== 'dom-bind') {
+          Polymer.dom(this).appendChild(document.importNode(template.content, true));
+        }
       },
 
       _copyToClipboard: function() {

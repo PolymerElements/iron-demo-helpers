@@ -55,6 +55,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </demo-snippet>
 
+  <demo-snippet id="demoWithDomBind">
+    <template is="dom-bind">
+      <paper-checkbox checked="{{checked}}"></paper-checkbox>
+      <div>{{checked}}</div>
+    </template>
+  </demo-snippet>
+
   <script>
     suite('display', function() {
       var emptyHeight;
@@ -107,6 +114,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var markdownElement = element.$.marked;
         expect(markdownElement.markdown).to.be.equal(
             '```\n\n<paper-checkbox disabled></paper-checkbox>\n\n```');
+      });
+
+      test('can render dom-bind templates', function() {
+        var element = document.getElementById('demoWithDomBind');
+
+        // Render the distributed children.
+        Polymer.dom.flush();
+
+        var rect = element.getBoundingClientRect();
+
+        expect(rect.height).to.be.greaterThan(emptyHeight);
+
+        // Make sure that bindings used in the demo work as expected.
+        var checkbox = Polymer.dom(element).querySelector('paper-checkbox');
+        var div = Polymer.dom(element).querySelector('div');
+        expect(div.textContent).to.equal('false');
+        checkbox.checked = true;
+        expect(div.textContent).to.equal('true');
+
+        var markdownElement = element.$.marked;
+        expect(markdownElement.markdown).to.be.equal(
+            '```\n\n<paper-checkbox checked="{{checked}}"></paper-checkbox>\n<div>{{checked}}</div>\n\n```');
       });
     });
 
