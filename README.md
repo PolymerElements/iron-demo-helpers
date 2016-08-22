@@ -27,18 +27,14 @@ Polymer elements.
 Example of a native element demo
 
     <demo-snippet>
-      <template>
-        <input type="date">
-      </template>
+      <input type="date">
     </demo-snippet>
 
 Example of a Polymer <paper-checkbox> demo
 
     <demo-snippet>
-      <template>
-        <paper-checkbox>Checkbox</paper-checkbox>
-        <paper-checkbox checked>Checkbox</paper-checkbox>
-      </template>
+      <paper-checkbox>Checkbox</paper-checkbox>
+      <paper-checkbox checked>Checkbox</paper-checkbox>
     </demo-snippet>
 ```
 
