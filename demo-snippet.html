@@ -60,6 +60,7 @@ Custom property | Description | Default
       }
 
       .demo {
+        display: block;
         border-bottom: 1px solid #e0e0e0;
         background-color: white;
         margin: 0;
@@ -98,8 +99,8 @@ Custom property | Description | Default
     </style>
 
     <div class="demo">
-      <slot id="content"></slot>
-      <content id="content"></content>
+      <slot></slot>
+      <content></content>
     </div>
 
     <div class="code-container">

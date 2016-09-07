@@ -18,24 +18,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../polymer/polymer.html">
   <link rel="import" href="../demo-snippet.html">
+  <link rel="import" href="../demo-pages-shared-styles.html">
   <link rel="import" href="simple-button.html">
 
-  <!-- TODO(notwaldorf): replace with demo-pages-shared-styles when document custom-style imports work -->
-  <style>
-    body {
-      font-family: sans-serif;
-    }
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-  </style>
+  <custom-style><style is="custom-style" include="demo-pages-shared-styles">
+  </style></custom-style>
 
 </head>
 <body unresolved>
-  <div class="container">
+  <div class="centered">
     <h4>Demo of a native element</h4>
-    <demo-snippet class="centered-demo">
+    <demo-snippet>
       <template>
         <input type="date">
       </template>
