@@ -58,13 +58,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h4>Demo of a custom element with styles</h4>
     <demo-snippet class="centered-demo">
       <template>
-        <style is="custom-style">
+        <custom-style><style is="custom-style">
           .styled {
             --button-border: #e91e63;
             --button-background: #e6ee9c;
             color: #e91e63;
           }
-        </style>
+        </style></custom-style>
         <simple-button value="unstyled"></simple-button>
         <simple-button value="styled" class="styled"></simple-button>
       </template>
