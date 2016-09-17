@@ -11,7 +11,8 @@
     "demo"
   ],
   "main": [
-    "demo-snippet.html"
+    "demo-snippet.html",
+    "url-bar.html"
   ],
   "private": true,
   "repository": {
@@ -24,7 +25,8 @@
   "dependencies": {
     "polymer": "polymer/polymer#2.0-preview",
     "iron-flex-layout": "polymerelements/iron-flex-layout#2.0-preview",
-    "font-roboto": "PolymerElements/font-roboto#^1.0.0"
+    "font-roboto": "PolymerElements/font-roboto#^1.0.0",
+    "iron-location": "PolymerElements/iron-location#2.0-preview"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1",
