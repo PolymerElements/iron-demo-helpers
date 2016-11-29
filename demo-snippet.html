@@ -147,8 +147,24 @@ Custom property | Description | Default
 
         // Stamp the template.
         if (!template.is) {
+          var scripts = template.content.querySelectorAll('script');
+          for (var i = 0; i < scripts.length; i++) {
+            if (scripts[i].innerHTML) {
+              scripts[i].innerHTML = this._wrapScript(scripts[i]);
+            }
+          }
           Polymer.dom(this).appendChild(document.importNode(template.content, true));
         }
+      },
+
+      _wrapScript: function(script) {
+        return
+          'window.addEventListener("WebComponentsReady", function() {' +
+            // Async call needed here for IE11/Edge compatibility.
+            'Polymer.Base.async(function() {' +
+              script.innerHTML +
+            '});' +
+          '});';
       },
 
       _copyToClipboard: function() {
