@@ -131,22 +131,16 @@ Custom property | Description | Default
 
       attached: function() {
         var template = Polymer.dom(this).queryDistributedElements('template')[0];
-
-        // If there's no template, render empty code.
-        if (!template) {
-          this._markdown = '```\n```';
-          return;
-        }
-
-        var snippet = this.$.marked.unindent(template.innerHTML);
+        var content =  template || Polymer.dom(this);
+        var snippet = this.$.marked.unindent(content.innerHTML);
 
         // Boolean properties are displayed as checked="", so remove the ="" bit.
         snippet = snippet.replace(/=""/g, '');
 
         this._markdown = '```\n' + snippet + '\n' + '```';
 
-        // Stamp the template.
-        if (!template.is) {
+        // Stamp the content if it is a template without 'is' attribute.
+        if (template && !template.is) {
           Polymer.dom(this).appendChild(document.importNode(template.content, true));
         }
       },

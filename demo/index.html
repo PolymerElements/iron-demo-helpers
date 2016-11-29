@@ -38,42 +38,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <div class="vertical-section-container centered">
     <h4>Demo of a native element</h4>
     <demo-snippet class="centered-demo">
-      <template>
-        <input type="date">
-      </template>
+      <input type="date">
     </demo-snippet>
 
     <h4>Demo of a custom element</h4>
     <demo-snippet class="centered-demo">
-      <template>
-        <paper-checkbox>Checkbox</paper-checkbox>
-        <paper-checkbox checked>Checkbox</paper-checkbox>
-      </template>
+      <paper-checkbox>Checkbox</paper-checkbox>
+      <paper-checkbox checked>Checkbox</paper-checkbox>
     </demo-snippet>
 
     <h4>Demo of an element with custom styles</h4>
     <demo-snippet class="centered-demo small-text">
-      <template>
-        <style is="custom-style">
-          paper-checkbox.blue {
-            --paper-checkbox-checked-color: var(--paper-blue-500);
-            --paper-checkbox-checked-ink-color: var(--paper-blue-500);
-            --paper-checkbox-unchecked-color: var(--paper-blue-900);
-            --paper-checkbox-unchecked-ink-color: var(--paper-blue-900);
-            --paper-checkbox-label-color: var(--paper-blue-500);
-          }
-          paper-checkbox.red {
-            --paper-checkbox-checked-color: var(--paper-red-500);
-            --paper-checkbox-checked-ink-color: var(--paper-red-500);
-            --paper-checkbox-unchecked-color: var(--paper-red-900);
-            --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
-            --paper-checkbox-label-color: var(--paper-red-500);
-          }
-        </style>
+      <style is="custom-style">
+        paper-checkbox.blue {
+          --paper-checkbox-checked-color: var(--paper-blue-500);
+          --paper-checkbox-checked-ink-color: var(--paper-blue-500);
+          --paper-checkbox-unchecked-color: var(--paper-blue-900);
+          --paper-checkbox-unchecked-ink-color: var(--paper-blue-900);
+          --paper-checkbox-label-color: var(--paper-blue-500);
+        }
+        paper-checkbox.red {
+          --paper-checkbox-checked-color: var(--paper-red-500);
+          --paper-checkbox-checked-ink-color: var(--paper-red-500);
+          --paper-checkbox-unchecked-color: var(--paper-red-900);
+          --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
+          --paper-checkbox-label-color: var(--paper-red-500);
+        }
+      </style>
 
-        <paper-checkbox class="blue">Checkbox</paper-checkbox>
-        <paper-checkbox checked class="red">Checkbox</paper-checkbox>
-      </template>
+      <paper-checkbox class="blue">Checkbox</paper-checkbox>
+      <paper-checkbox checked class="red">Checkbox</paper-checkbox>
     </demo-snippet>
 
     <h4>Demo of an element with bindings</h4>
