@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../demo-snippet.html">
   <script src="../../iron-test-helpers/test-helpers.js"></script>
   <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
 
 </head>
 <body>
@@ -60,6 +61,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-checkbox checked="{{checked}}"></paper-checkbox>
       <input value="[[checked]]">
     </template>
+  </demo-snippet>
+
+  <demo-snippet id="domBindDeclarative">
+    <template is="dom-bind" id="boundData">
+      <paper-input value="{{data.theValue}}"></paper-input>
+      <span>[[data.theValue]]</span>
+    </template>
+
+    <script>
+      function boundData() {
+        return {
+          theValue: 'initial input value'
+        }
+      }
+    </script>
   </demo-snippet>
 
   <script>
@@ -142,6 +158,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           done();
         });
       });
+
+      test('can be bound declaratively to global function of same name', function(done) {
+        var element = document.getElementById('domBindDeclarative');
+        var span = Polymer.dom(element).querySelector('span');
+        var input = Polymer.dom(element).querySelector('paper-input');
+
+        // Render the distributed children.
+        Polymer.dom.flush();
+
+        flush(function() {
+          expect(span.textContent).to.be.equal('initial input value');
+          expect(input.value).to.be.equal('initial input value');
+          done();
+        });
+      })
     });
 
     suite('parsing', function() {
