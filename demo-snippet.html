@@ -148,6 +148,13 @@ Custom property | Description | Default
         // Stamp the template.
         if (!template.is) {
           Polymer.dom(this).appendChild(document.importNode(template.content, true));
+        } else if(template.id) {
+          var dataGetter = window[template.id];
+
+          // set template data if a global function with the same name exists
+          if(dataGetter && typeof dataGetter === 'function') {
+            template.data = dataGetter();
+          }
         }
       },
 
