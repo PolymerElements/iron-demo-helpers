@@ -23,7 +23,7 @@
   "homepage": "https://github.com/PolymerElements/iron-demo-helpers",
   "ignore": [],
   "dependencies": {
-    "polymer": "polymer/polymer#2.0-preview",
+    "polymer": "polymer/polymer#^2.0.0-rc.1",
     "iron-flex-layout": "polymerelements/iron-flex-layout#2.0-preview",
     "font-roboto": "PolymerElements/font-roboto#^1.0.0",
     "iron-location": "PolymerElements/iron-location#2.0-preview"
