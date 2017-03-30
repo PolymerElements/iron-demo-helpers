@@ -21,8 +21,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../demo-pages-shared-styles.html">
   <link rel="import" href="simple-button.html">
 
-  <custom-style><style is="custom-style" include="demo-pages-shared-styles">
-  </style></custom-style>
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles"></style>
+  </custom-style>
 
 </head>
 <body unresolved>
@@ -51,13 +52,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h4>Demo of a custom element with styles</h4>
     <demo-snippet class="centered-demo">
       <template>
-        <custom-style><style is="custom-style">
-          .styled {
-            --button-border: #e91e63;
-            --button-background: #e6ee9c;
-            color: #e91e63;
-          }
-        </style></custom-style>
+        <custom-style>
+          <style is="custom-style">
+            .styled {
+              --button-border: #e91e63;
+              --button-background: #e6ee9c;
+              color: #e91e63;
+            }
+          </style>
+        </custom-style>
         <simple-button value="unstyled"></simple-button>
         <simple-button value="styled" class="styled"></simple-button>
       </template>
