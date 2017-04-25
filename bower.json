@@ -41,7 +41,7 @@
         "polymer": "Polymer/polymer#^1.5.0",
         "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
         "iron-location": "PolymerElements/iron-location#^0.8.0",
-        "marked-element": "polymerelements/marked-element#^1.0.0",
+        "marked-element": "PolymerElements/marked-element#^1.0.0",
         "prism-element": "PolymerElements/prism-element#^1.1.0"
       },
       "devDependencies": {
