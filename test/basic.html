@@ -62,17 +62,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </demo-snippet>
 
+  <template is="dom-bind">
+    <demo-snippet id="emptyDemoDomBind"></demo-snippet>
+
+    <demo-snippet id="nativeDemoDomBind">
+      <template>
+        <input disabled>
+      </template>
+    </demo-snippet>
+
+    <demo-snippet id="customDemoDomBind">
+      <template>
+        <paper-checkbox disabled></paper-checkbox>
+      </template>
+    </demo-snippet>
+
+    <demo-snippet id="demoWithAttributesDomBind">
+      <template>
+        <input disabled type="date">
+      </template>
+    </demo-snippet>
+
+    <demo-snippet id="typeExtensionDemoDomBind">
+      <template is="dom-bind">
+        <paper-checkbox checked="{{checked}}"></paper-checkbox>
+        <input value="[[checked]]">
+      </template>
+    </demo-snippet>
+  </template>
+
   <script>
+  function demoSnippetTests(domBind) {
     suite('display', function() {
       var emptyHeight;
 
       setup(function() {
-        var emptyDemo = document.getElementById('emptyDemo');
+        var emptyDemo = document.getElementById('emptyDemo' + domBind);
         emptyHeight = emptyDemo.getBoundingClientRect().height;
       });
 
       test('can render native elements', function() {
-        var element = document.getElementById('nativeDemo');
+        var element = document.getElementById('nativeDemo' + domBind);
 
         // Render the distributed children.
         Polymer.dom.flush();
@@ -94,7 +124,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('can render custom elements', function() {
-        var element = document.getElementById('customDemo');
+        var element = document.getElementById('customDemo' + domBind);
 
         // Render the distributed children.
         Polymer.dom.flush();
@@ -117,7 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('elements are only rendered once when using a custom type-extension', function() {
-        var element = document.getElementById('typeExtensionDemo');
+        var element = document.getElementById('typeExtensionDemo' + domBind);
 
         // Render the distributed children.
         Polymer.dom.flush();
@@ -127,7 +157,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('can support databinding between elements', function(done) {
-        var element = document.getElementById('typeExtensionDemo');
+        var element = document.getElementById('typeExtensionDemo' + domBind);
         var input = Polymer.dom(element).querySelector('input');
         var checkbox = Polymer.dom(element).querySelector('paper-checkbox')
 
@@ -146,7 +176,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     suite('parsing', function() {
       test('preserves attributes', function() {
-        var element = document.getElementById('demoWithAttributes');
+        var element = document.getElementById('demoWithAttributes' + domBind);
 
         // Render the distributed children.
         Polymer.dom.flush();
@@ -156,6 +186,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             '```\n\n<input disabled type="date">\n\n```');
       });
     });
+  }
+
+  suite('withoutDomBind',function() {
+    demoSnippetTests('');
+  });
+
+  suite('withDomBind', function() {
+    demoSnippetTests('DomBind');
+  });
   </script>
 </body>
 </html>

@@ -131,11 +131,73 @@ Custom property | Description | Default
 
       attached: function() {
         var template = Polymer.dom(this).queryDistributedElements('template')[0];
-
+        
         // If there's no template, render empty code.
         if (!template) {
           this._markdown = '```\n```';
           return;
+        }
+
+        // Runs if inside a Polymer template e.g. dom-bind or inside dom-module
+        if (!template.innerHTML && template._content) {
+          var inertDoc = template.content.ownerDocument;
+          var templateNotes = template._content._notes;
+          var content = inertDoc.importNode(template._content, true);
+
+          // duplicate template needed as to not bound values already initialized
+          var templateIs = template.is;
+          template = document.createElement('template');
+          template.is = templateIs;
+          Polymer.dom(template.content).appendChild(content);
+          content = inertDoc.importNode(template.content, true);
+
+
+          var contentNodes = content.childNodes;
+
+          // Iterates through notes which include bindings that were stripped
+          // from the nodes and adds them back in as attributes
+          for (var i in templateNotes) {
+            var note = templateNotes[i];
+
+            if (note.bindings.length) {
+              var notedElement = contentNodes[note.index];
+
+              if (note.bindings.length) {
+                for (var j in note.bindings) {
+                  var binding = note.bindings[j];
+                  var attr = inertDoc.createAttribute(binding.propertyName);
+                  
+                  for (var k in binding.parts) {
+                    var part = binding.parts[k];
+                    var leftBrackets = '';
+                    var rightBrackets = '';
+                    var value = part.value;
+
+                    // handling if a literal instead of a binding. e.g.
+                    // class="[[binding]] literal [[otherBinding]]"
+                    if (!part.value) {
+                      var literal = part.literal ? part.literal : '';
+                      value = literal.trim();
+
+                    } else {
+                      if (part.mode == '[') {
+                        leftBrackets = '[[';
+                        rightBrackets = ']]';
+                      } else {
+                        leftBrackets = '{{';
+                        rightBrackets = '}}';
+                      }
+                    }
+
+                    attr.value += leftBrackets + value + rightBrackets + ' ';
+                  }
+
+                  attr.value = attr.value.trim();
+                  notedElement.setAttributeNode(attr);
+                }
+              }
+            }
+          }
         }
 
         var snippet = this.$.marked.unindent(template.innerHTML);
