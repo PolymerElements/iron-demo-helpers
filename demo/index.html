@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../paper-styles/color.html">
   <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
   <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
   <link rel="import" href="../demo-snippet.html">
   <link rel="import" href="../demo-pages-shared-styles.html">
 
@@ -82,6 +83,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-checkbox checked="[[active]]">One-Way Binding</paper-checkbox>
         <paper-checkbox checked="{{active}}">Two-Way Binding</paper-checkbox>
       </template>
+    </demo-snippet>
+
+    <h4>Demo of an element with initial bound value</h4>
+    <demo-snippet class="centered-demo small-text">
+      <template id="defaultBinding" is="dom-bind">
+        <paper-input value="{{data.someText}}"></paper-input>
+        <paper-input value="{{data.someText}}"></paper-input>
+      </template>
+
+      <script>
+        function defaultBinding() {
+          return {
+            someText: 'Lorem Ipsum Dolor'
+          }
+        }
+      </script>
     </demo-snippet>
   </div>
 </body>

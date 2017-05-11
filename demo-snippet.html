@@ -114,6 +114,14 @@ Custom property | Description | Default
           on-tap="_copyToClipboard">
       </paper-icon-button>
     </div>
+
+    <template is="dom-if" if="_boundDataJson">
+      <div class="code-container">
+        <marked-element markdown=[[_boundDataJson]]>
+          <div class="markdown-html code"></div>
+        </marked-element>
+      </div>
+    </template>
   </template>
 
   <script>
@@ -125,6 +133,10 @@ Custom property | Description | Default
       properties: {
         _markdown: {
           type: String,
+          value: ''
+        },
+        _boundDataJson: {
+          type: Object,
           value: ''
         }
       },
@@ -148,6 +160,15 @@ Custom property | Description | Default
         // Stamp the template.
         if (!template.hasAttribute('is')) {
           Polymer.dom(this).appendChild(document.importNode(template.content, true));
+        } else if(template.id) {
+          var dataGetter = window[template.id];
+
+          // set template data if a global function with the same name exists
+          if(dataGetter && typeof dataGetter === 'function') {
+            var boundData = dataGetter();
+            this._boundDataJson = '``` js\nvar data = ' + JSON.stringify(boundData, null, 2) + '\n' + '```';
+            template.data = boundData;
+          }
         }
       },
 
