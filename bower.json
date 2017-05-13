@@ -23,11 +23,11 @@
   "homepage": "https://github.com/PolymerElements/iron-demo-helpers",
   "ignore": [],
   "dependencies": {
-    "polymer": "polymer/polymer#^2.0.0-rc.1",
+    "polymer": "Polymer/polymer#^2.0.0-rc.1",
     "font-roboto": "PolymerElements/font-roboto#^1",
-    "iron-flex-layout": "polymerelements/iron-flex-layout#2.0-preview",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#2.0-preview",
     "iron-location": "PolymerElements/iron-location#2.0-preview",
-    "marked-element": "polymerelements/marked-element#2.0-preview",
+    "marked-element": "PolymerElements/marked-element#2.0-preview",
     "prism-element": "PolymerElements/prism-element#2.0-preview"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
         "font-roboto": "PolymerElements/font-roboto#^1",
         "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
         "iron-location": "PolymerElements/iron-location#^0.8.0",
-        "marked-element": "polymerelements/marked-element#^1.0.0",
+        "marked-element": "PolymerElements/marked-element#^1.0.0",
         "prism-element": "PolymerElements/prism-element#^1.1.0"
       },
       "devDependencies": {
