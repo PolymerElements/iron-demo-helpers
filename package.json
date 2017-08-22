@@ -1,0 +1,29 @@
+{
+  "name": "@polymer/iron-demo-helpers",
+  "flat": true,
+  "version": "3.0.0-pre.1",
+  "description": "Utility classes to make building demo pages easier",
+  "contributors": [
+    "The Polymer Authors"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "demo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/iron-demo-helpers.git"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerElements/iron-demo-helpers",
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0-pre.1",
+    "@polymer/font-roboto": "^3.0.0-pre.1",
+    "@polymer/iron-flex-layout": "^3.0.0-pre.1",
+    "@polymer/iron-location": "^3.0.0-pre.1",
+    "@polymer/marked-element": "^3.0.0-pre.1",
+    "@polymer/prism-element": "^3.0.0-pre.1"
+  },
+  "devDependencies": {}
+}

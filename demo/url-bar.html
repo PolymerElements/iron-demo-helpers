@@ -17,34 +17,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-  <link rel="import" href="../url-bar.html">
-  <link rel="import" href="../demo-pages-shared-styles.html">
+  <script type="module" src="../url-bar.js"></script>
+  <script type="module" src="../demo-pages-shared-styles.js"></script>
 
-  <custom-style>
+  <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('div');
+
+$_documentContainer.innerHTML = `<custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
       iframe {
         width: 100%;
       }
     </style>
-  </custom-style>
+  </custom-style>`;
+
+document.body.appendChild($_documentContainer);
+</script>
 </head>
 <body unresolved>
-  <url-bar></url-bar>
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<url-bar></url-bar>`;
+document.body.appendChild($_documentContainer);
+</script>
 
-  <div id='message'></div>
+  <script type="module">
+const $_documentContainer = document.createElement('div');
+$_documentContainer.innerHTML = `<div id="message"></div>`;
+document.body.appendChild($_documentContainer);
+</script>
 
-  <script>
-    var message;
-    if (window.top !== window) {
-      message = 'URL Bar should appear above this text';
-    } else {
-      message = 'No URL Bar above this text. iframe below this text with URL bar.';
-      var iframe = document.createElement('iframe');
-      iframe.setAttribute('src', window.location.href);
-      document.body.appendChild(iframe);
-    }
+  <script type="module">
+import '../url-bar.js';
+import '../demo-pages-shared-styles.js';
+var message;
+if (window.top !== window) {
+  message = 'URL Bar should appear above this text';
+} else {
+  message = 'No URL Bar above this text. iframe below this text with URL bar.';
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('src', window.location.href);
+  document.body.appendChild(iframe);
+}
 
-    document.querySelector('#message').innerText = message;
-  </script>
+document.querySelector('#message').innerText = message;
+</script>
 </body>
 </html>
