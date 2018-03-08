@@ -1,0 +1,10 @@
+{
+  "name": "@polymer/iron-demo-helpers",
+  "private": true,
+  "description": "Utility classes to make building demo pages easier",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/iron-demo-helpers.git"
+  },
+  "license": "BSD-3-Clause"
+}
