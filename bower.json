@@ -12,7 +12,8 @@
   ],
   "main": [
     "demo-snippet.html",
-    "url-bar.html"
+    "url-bar.html",
+    "demo-pages-shared-styles.html"
   ],
   "private": true,
   "repository": {
