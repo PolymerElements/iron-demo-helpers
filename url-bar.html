@@ -85,10 +85,7 @@ Custom property | Description | Default
     Polymer({
       is: 'url-bar',
       properties: {
-        url: {
-          computed: '__computeUrl(path, query, hash)',
-          type: String
-        },
+        url: {computed: '__computeUrl(path, query, hash)', type: String},
 
         inIframe: {
           value: function() {
@@ -98,17 +95,11 @@ Custom property | Description | Default
           type: Boolean
         },
 
-        path: {
-          type: String
-        },
+        path: {type: String},
 
-        query: {
-          type: String
-        },
+        query: {type: String},
 
-        hash: {
-          type: String
-        }
+        hash: {type: String}
       },
 
       __computeUrl: function(path, query, hash) {
