@@ -155,11 +155,15 @@ Custom property | Description | Default
 
         var snippet = this.$.marked.unindent(template.innerHTML);
 
+        // Hack: In safari + shady dom, sometime we get an empty 'class' attribute.
+        // if we do, delete it.
+        snippet = snippet.replace(/ class=""/g, '');
+
         // Boolean properties are displayed as checked="", so remove the ="" bit.
         snippet = snippet.replace(/=""/g, '');
+
         this._markdown = '```\n' + snippet + '\n' +
             '```';
-
         // Stamp the template.
         if (!template.hasAttribute('is')) {
           // Don't need to listen for more changes (since stamping the template
