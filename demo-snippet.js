@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -6,14 +6,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../marked-element/marked-element.html">
-<link rel="import" href="../prism-element/prism-highlighter.html">
-<link rel="import" href="../prism-element/prism-theme-default.html">
-
-<!--
+*/
+/**
 `demo-snippet` is a helper element that displays the source of a code snippet and
 its rendered demo. It can be used for both native elements and
 Polymer elements.
@@ -47,10 +41,23 @@ Custom property | Description | Default
 
 @element demo-snippet
 @demo demo/index.html
--->
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
 
-<dom-module id="demo-snippet">
-  <template>
+import '@polymer/marked-element/marked-element.js';
+import '@polymer/prism-element/prism-highlighter.js';
+import '@polymer/prism-element/prism-theme-default.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+
+Polymer({
+  _template: html`
     <style include="prism-theme-default">
       :host {
         display: block;
@@ -117,93 +124,86 @@ Custom property | Description | Default
       </marked-element>
       <button id="copyButton" title="copy to clipboard" on-tap="_copyToClipboard">Copy</button>
     </div>
-  </template>
+`,
 
-  <script>
-    'use strict';
+  is: 'demo-snippet',
 
-    Polymer({
-      is: 'demo-snippet',
+  properties: {
+    _markdown: {
+      type: String,
+    },
+  },
 
-      properties: {
-        _markdown: {
-          type: String,
-        },
-      },
+  attached: function() {
+    this._observer = dom(this.$.content).observeNodes(function(info) {
+      this._updateMarkdown();
+    }.bind(this));
+  },
 
-      attached: function() {
-        this._observer = Polymer.dom(this.$.content).observeNodes(function(info) {
-          this._updateMarkdown();
-        }.bind(this));
-      },
+  detached: function() {
+    if (this._observer) {
+      dom(this.$.content).unobserveNodes(this._observer);
+      this._observer = null;
+    }
+  },
 
-      detached: function() {
-        if (this._observer) {
-          Polymer.dom(this.$.content).unobserveNodes(this._observer);
-          this._observer = null;
-        }
-      },
+  _updateMarkdown: function() {
+    var template = dom(this).queryDistributedElements('template')[0];
 
-      _updateMarkdown: function() {
-        var template = Polymer.dom(this).queryDistributedElements('template')[0];
+    // If there's no template, render empty code.
+    if (!template) {
+      this._markdown = '';
+      return;
+    }
 
-        // If there's no template, render empty code.
-        if (!template) {
-          this._markdown = '';
-          return;
-        }
+    var snippet = this.$.marked.unindent(template.innerHTML);
 
-        var snippet = this.$.marked.unindent(template.innerHTML);
+    // Hack: In safari + shady dom, sometime we get an empty 'class' attribute.
+    // if we do, delete it.
+    snippet = snippet.replace(/ class=""/g, '');
 
-        // Hack: In safari + shady dom, sometime we get an empty 'class' attribute.
-        // if we do, delete it.
-        snippet = snippet.replace(/ class=""/g, '');
+    // Boolean properties are displayed as checked="", so remove the ="" bit.
+    snippet = snippet.replace(/=""/g, '');
 
-        // Boolean properties are displayed as checked="", so remove the ="" bit.
-        snippet = snippet.replace(/=""/g, '');
+    this._markdown = '```\n' + snippet + '\n' +
+        '```';
+    // Stamp the template.
+    if (!template.hasAttribute('is')) {
+      // Don't need to listen for more changes (since stamping the template
+      // will trigger an observeNodes)
+      dom(this.$.content).unobserveNodes(this._observer);
+      this._observer = null;
+      dom(this).appendChild(
+          document.importNode(template.content, true));
+    }
+  },
 
-        this._markdown = '```\n' + snippet + '\n' +
-            '```';
-        // Stamp the template.
-        if (!template.hasAttribute('is')) {
-          // Don't need to listen for more changes (since stamping the template
-          // will trigger an observeNodes)
-          Polymer.dom(this.$.content).unobserveNodes(this._observer);
-          this._observer = null;
-          Polymer.dom(this).appendChild(
-              document.importNode(template.content, true));
-        }
-      },
+  _copyToClipboard: function() {
+    // From
+    // https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
+    var snipRange = document.createRange();
+    snipRange.selectNodeContents(this.$.code);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(snipRange);
+    var result = false;
+    try {
+      result = document.execCommand('copy');
+      this.$.copyButton.textContent = 'done';
+    } catch (err) {
+      // Copy command is not available
+      console.error(err);
+      this.$.copyButton.textContent = 'error';
+    }
 
-      _copyToClipboard: function() {
-        // From
-        // https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
-        var snipRange = document.createRange();
-        snipRange.selectNodeContents(this.$.code);
-        var selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(snipRange);
-        var result = false;
-        try {
-          result = document.execCommand('copy');
-          this.$.copyButton.textContent = 'done';
-        } catch (err) {
-          // Copy command is not available
-          console.error(err);
-          this.$.copyButton.textContent = 'error';
-        }
+    // Return to the copy button after a second.
+    setTimeout(this._resetCopyButtonState.bind(this), 1000);
 
-        // Return to the copy button after a second.
-        setTimeout(this._resetCopyButtonState.bind(this), 1000);
+    selection.removeAllRanges();
+    return result;
+  },
 
-        selection.removeAllRanges();
-        return result;
-      },
-
-      _resetCopyButtonState: function() {
-        this.$.copyButton.textContent = 'copy';
-      },
-    });
-  </script>
-
-</dom-module>
+  _resetCopyButtonState: function() {
+    this.$.copyButton.textContent = 'copy';
+  }
+});

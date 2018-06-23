@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -6,12 +6,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-location/iron-location.html">
-<link rel="import" href="../font-roboto/roboto.html">
-
-<!--
+*/
+/**
 `url-bar` is a helper element that displays a simple read-only URL bar if
 and only if the page is in an iframe. In this way we can demo elements that
 deal with the URL in our iframe-based demo environments.
@@ -28,9 +24,20 @@ Custom property | Description | Default
 
 @element url-bar
 @demo demo/url-bar.html
--->
-<dom-module id='url-bar'>
-  <template>
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
+
+import '@polymer/iron-location/iron-location.js';
+import '@polymer/font-roboto/roboto.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+Polymer({
+  _template: html`
     <style>
       :host {
         margin: 0px;
@@ -80,50 +87,48 @@ Custom property | Description | Default
     <div class="layout horizontal">
       <label>URL</label><span>{{url}}</span>
     </div>
-  </template>
-  <script>
-    Polymer({
-      is: 'url-bar',
-      properties: {
-        url: {
-          computed: '__computeUrl(path, query, hash)',
-          type: String,
-        },
+`,
 
-        inIframe: {
-          value: function() {
-            return window.top !== window;
-          },
-          reflectToAttribute: true,
-          type: Boolean
-        },
+  is: 'url-bar',
 
-        path: {
-          type: String,
-        },
+  properties: {
+    url: {
+      computed: '__computeUrl(path, query, hash)',
+      type: String,
+    },
 
-        query: {
-          type: String,
-        },
-
-        hash: {
-          type: String,
-        }
+    inIframe: {
+      value: function() {
+        return window.top !== window;
       },
+      reflectToAttribute: true,
+      type: Boolean
+    },
 
-      __computeUrl: function(path, query, hash) {
-        var url = path;
+    path: {
+      type: String,
+    },
 
-        if (query) {
-          url += '?' + query;
-        }
+    query: {
+      type: String,
+    },
 
-        if (hash) {
-          url += '#' + hash;
-        }
+    hash: {
+      type: String,
+    }
+  },
 
-        return url;
-      }
-    })
-  </script>
-</dom-module>
+  __computeUrl: function(path, query, hash) {
+    var url = path;
+
+    if (query) {
+      url += '?' + query;
+    }
+
+    if (hash) {
+      url += '#' + hash;
+    }
+
+    return url;
+  }
+})
