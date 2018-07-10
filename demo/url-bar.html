@@ -15,18 +15,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.0.0/webcomponents-loader.js"></script>
+
   <script type="module">
     import {html} from '@polymer/polymer/lib/utils/html-tag.js';
     import '../demo-pages-shared-styles.js';
     const template = html`
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-        iframe {
-          width: 100%;
-        }
-      </style>
-    </custom-style>
+      <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+          iframe {
+            width: 100%;
+          }
+        </style>
+      </custom-style>
     `;
     document.body.appendChild(template.content);
   </script>
@@ -34,7 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body unresolved>
   <url-bar></url-bar>
   <div id="message"></div>
-  
+
   <script type="module">
     import '../url-bar.js';
     var message;
@@ -46,7 +47,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iframe.setAttribute('src', window.location.href);
       document.body.appendChild(iframe);
     }
-
     document.querySelector('#message').innerText = message;
   </script>
 </body>
