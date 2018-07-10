@@ -21,30 +21,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="module" src="../demo-pages-shared-styles.js"></script>
   <script type="module" src="./simple-button.js"></script>
 
-  <!-- FIXME(polymer-modulizer):
-        These imperative modules that innerHTML your HTML are
-        a hacky way to be sure that any mixins in included style
-        modules are ready before any elements that reference them are
-        instantiated, otherwise the CSS @apply mixin polyfill won't be
-        able to expand the underlying CSS custom properties.
-        See: https://github.com/Polymer/polymer-modulizer/issues/154
-        -->
-    <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<custom-style>
-    <style is="custom-style" include="demo-pages-shared-styles"></style>
-  </custom-style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+  <script type="module">
+    import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+    const template = html`
+      <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles"></style>
+      </custom-style>
+    `;
+    document.body.appendChild(template.content);
+  </script>
 
 </head>
 <body unresolved>
   <script type="module">
-const $_documentContainer = document.createElement('template');
+    const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<div class="centered">
+    $_documentContainer.innerHTML = `<div class="centered">
     <h4>Demo of a native element</h4>
     <demo-snippet>
       <template>
@@ -84,7 +76,7 @@ $_documentContainer.innerHTML = `<div class="centered">
     </demo-snippet>
   </div>`;
 
-document.body.appendChild($_documentContainer.content);
-</script>
+    document.body.appendChild($_documentContainer.content);
+  </script>
 </body>
 </html>
