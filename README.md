@@ -103,3 +103,33 @@ open http://127.0.0.1:<port>/demo/
 ```sh
 polymer test --npm
 ```
+
+## Known Issues
+If you add a `script type="module"` inside a `demo-snippet`, the demo will
+not be functional on non-module browsers (like IE11). If you need to
+use a `script type="module"` and want to display its code in the `demo-snippet`,
+a possible workaround is to duplicate the contents of the script outside of the
+`demo-snippet` -- that way `polymer serve` (or whatever solution you're using to
+ES5-ify the code) will convert the main document `module` to UMD, but will leave the
+displayed code untouched. Here is an example:
+
+```html
+<body>
+  <demo-snippet>
+    <template>
+      ...
+      <script type="module">
+        import {SomeExport} from '../foo.js';
+        SomeExport.aFunction();
+      </script>
+    </template>
+  </demo-snippet>
+
+  <!-- Hack: on non-module browsers the demo-snippet script doesn't
+    do anything, so add the content here again to make sure the demo works -->
+  <script type="module">
+    import {SomeExport} from '../foo.js';
+    SomeExport.aFunction();
+  </script>
+</body>
+```
