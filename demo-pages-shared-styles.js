@@ -12,10 +12,10 @@ found at http://polymer.github.io/PATENTS.txt
 import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/font-roboto/roboto.js';
-const $_documentContainer = document.createElement('template');
-$_documentContainer.setAttribute('style', 'display: none;');
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
-$_documentContainer.innerHTML = `<dom-module id="demo-pages-shared-styles">
+const template = html`
+<dom-module id="demo-pages-shared-styles">
   <template>
     <style>
       body {
@@ -52,6 +52,8 @@ $_documentContainer.innerHTML = `<dom-module id="demo-pages-shared-styles">
       }
     </style>
   </template>
-</dom-module>`;
+</dom-module>
+`;
 
-document.head.appendChild($_documentContainer.content);
+template.setAttribute('style', 'display: none;');
+document.head.appendChild(template.content);
