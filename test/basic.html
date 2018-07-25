@@ -14,10 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>demo-snippet tests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-  <script src="../../../wct-browser-legacy/browser.js"></script>
-  <script type="module" src="../demo-snippet.js"></script>
-  <script type="module" src="./simple-button.js"></script>
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 </head>
 <body>
   <!--
@@ -32,7 +30,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     If you don't want this, either use a new element, or clean up after
     your test.
   -->
-
   <demo-snippet id="emptyDemo"></demo-snippet>
 
   <demo-snippet id="nativeDemo">
@@ -54,75 +51,75 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </demo-snippet>
 
   <script type="module">
-import '../demo-snippet.js';
-import './simple-button.js';
-import { Base } from '@polymer/polymer/polymer-legacy.js';
-suite('display', function() {
-  var emptyHeight;
+    import '../demo-snippet.js';
+    import './simple-button.js';
+    import {Base} from '@polymer/polymer/polymer-legacy.js';
+    suite('display', function() {
+      var emptyHeight;
 
-  setup(function() {
-    var emptyDemo = document.getElementById('emptyDemo');
-    emptyHeight = emptyDemo.getBoundingClientRect().height;
-  });
+      setup(function() {
+        var emptyDemo = document.getElementById('emptyDemo');
+        emptyHeight = emptyDemo.getBoundingClientRect().height;
+      });
 
-  test('can render native elements', function(done) {
-    Base.async(function() {
-      var element = document.getElementById('nativeDemo');
+      test('can render native elements', function(done) {
+        Base.async(function() {
+          var element = document.getElementById('nativeDemo');
 
-      var rect = element.getBoundingClientRect();
+          var rect = element.getBoundingClientRect();
 
-      expect(rect.height).to.be.greaterThan(emptyHeight);
+          expect(rect.height).to.be.greaterThan(emptyHeight);
 
-      // The demo is rendered in the light dom, so it should exist, and
-      // it should respect the demo element's attributes, and not make up
-      // new ones.
-      var input = element.querySelector('input')
-      expect(input).to.be.ok;
-      expect(input.disabled).to.be.true;
+          // The demo is rendered in the light dom, so it should exist, and
+          // it should respect the demo element's attributes, and not make up
+          // new ones.
+          var input = element.querySelector('input')
+          expect(input).to.be.ok;
+          expect(input.disabled).to.be.true;
 
-      var markdownElement = element.$.marked;
-      expect(markdownElement.markdown)
-          .to.be.equal('```\n\n<input disabled>\n\n```');
-      done();
-    }, 1);
-  });
+          var markdownElement = element.$.marked;
+          expect(markdownElement.markdown)
+              .to.be.equal('```\n\n<input disabled>\n\n```');
+          done();
+        }, 1);
+      });
 
-  test('can render custom elements', function(done) {
-    Base.async(function() {
-      var element = document.getElementById('customDemo');
+      test('can render custom elements', function(done) {
+        Base.async(function() {
+          var element = document.getElementById('customDemo');
 
-      var rect = element.getBoundingClientRect();
+          var rect = element.getBoundingClientRect();
 
-      expect(rect.height).to.be.greaterThan(emptyHeight);
+          expect(rect.height).to.be.greaterThan(emptyHeight);
 
-      // The demo is rendered in the light dom, so it should exist, and
-      // it should respect the demo element's attributes, and not make up
-      // new ones.
-      var button = element.querySelector('simple-button')
-      expect(button).to.be.ok;
-      expect(button.value).to.be.equal('batman');
+          // The demo is rendered in the light dom, so it should exist, and
+          // it should respect the demo element's attributes, and not make up
+          // new ones.
+          var button = element.querySelector('simple-button')
+          expect(button).to.be.ok;
+          expect(button.value).to.be.equal('batman');
 
-      var markdownElement = element.$.marked;
-      expect(markdownElement.markdown)
-          .to.be.equal(
-              '```\n\n<simple-button value="batman"></simple-button>\n\n```');
-      done();
-    }, 1);
-  });
-});
+          var markdownElement = element.$.marked;
+          expect(markdownElement.markdown)
+              .to.be.equal(
+                  '```\n\n<simple-button value="batman"></simple-button>\n\n```');
+          done();
+        }, 1);
+      });
+    });
 
-suite('parsing', function() {
-  test('preserves attributes', function(done) {
-    Base.async(function() {
-      var element = document.getElementById('demoWithAttributes');
+    suite('parsing', function() {
+      test('preserves attributes', function(done) {
+        Base.async(function() {
+          var element = document.getElementById('demoWithAttributes');
 
-      var markdownElement = element.$.marked;
-      expect(markdownElement.markdown)
-          .to.be.equal('```\n\n<input disabled type="date">\n\n```');
-      done();
-    }, 1);
-  });
-});
-</script>
+          var markdownElement = element.$.marked;
+          expect(markdownElement.markdown)
+              .to.be.equal('```\n\n<input disabled type="date">\n\n```');
+          done();
+        }, 1);
+      });
+    });
+  </script>
 </body>
 </html>
