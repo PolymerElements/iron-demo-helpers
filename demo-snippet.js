@@ -157,10 +157,10 @@ Polymer({
 
     // Hack: In safari + shady dom, sometime we get an empty 'class' attribute.
     // if we do, delete it.
-    snippet = snippet.replace(/ class=""/g, '');
+    snippet = snippet.replace(/ class/g, '');
 
-    // Boolean properties are displayed as checked="", so remove the ="" bit.
-    snippet = snippet.replace(/=""/g, '');
+    // Boolean properties are displayed as checked, so remove the  bit.
+    snippet = snippet.replace(//g, '');
 
     this._markdown = '```\n' + snippet + '\n' +
         '```';
