@@ -172,6 +172,7 @@ Polymer({
       this._observer = null;
       dom(this).appendChild(document.importNode(template.content, true));
     }
+    this.dispatchEvent(new CustomEvent('dom-ready'));
   },
 
   _copyToClipboard: function() {
