@@ -126,6 +126,15 @@ Polymer({
   is: 'demo-snippet',
 
   properties: {
+
+    /**
+     * Fired when the demo-snippet is ready, i.e. when it has injected the code to demo 
+     * in the DOM and it can be interacted with
+     * 
+     * @event dom-ready
+     */
+
+    /** @private */
     _markdown: {
       type: String,
     },
